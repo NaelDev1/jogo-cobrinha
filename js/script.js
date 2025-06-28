@@ -46,7 +46,7 @@ const beginPlay = async () => {
 
    if(gameIsRunning){
           console.log("O jogo está rodando");
-          if(keysToResolve != undefined && keysToResolve.length != 0){
+          if(keysToResolve != undefined && keysToResolve.length > 0){
             console.log(keysToResolve[keysToResolve.length - 1]);
             console.log(keysToResolve);
             await renderGame(keysToResolve[0]);
@@ -54,7 +54,10 @@ const beginPlay = async () => {
 
           
         }
-        else await renderGame(undefined)
+        else {
+          console.log("jogo entrando em undefined");
+          await renderGame(undefined)
+        }
         
     }
   }
@@ -127,9 +130,24 @@ Render();
   y: Math.floor(Math.random() * 15 + 1) * box
   }
 
+
+  const groundSand = new Image();
+  groundSand.src = './assets/tilesand.png';
+
+  groundSand.onload = () => {
+    criaBG();
+  }
+
   function criaBG() {
-  context.fillStyle = 'lightGreen'
-  context.fillRect(0, 0, 16 * box, 16 * box) // posicao x, posicao y, largura, altura
+
+    for(let y = 0;y < 16; y++){
+      for(let x = 0; x< 16;x++){
+        context.drawImage(groundSand, x *box, y * box, box, box);
+      }
+    }
+
+  // context.fillStyle = 'lightGreen'
+  // context.fillRect(0, 0, 16 * box, 16 * box) // posicao x, posicao y, largura, altura
   }
 
 
@@ -154,8 +172,9 @@ let keys = ['ArrowUp', 'ArrowDown', 'ArrowRight', 'ArrowLeft']
 
 const renderGame  = async (currentKey) => {
 
-  
-    if(currentKey != undefined && keys.includes(currentKey) != undefined)
+  console.log('current key é', currentKey)
+  console.log('TEM?', keys.includes(currentKey))
+  if(currentKey != undefined && keys.includes(currentKey) ===true)
     direction = currentKey;
 
     console.log('new direction', direction);
