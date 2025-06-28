@@ -76,3 +76,10 @@ aside {
   grid-row: 3;
   grid-column: 2;
 }
+
+
+.containerButtons {
+  display: flex;
+  flex-direction: row;
+  gap: 10px;
+}
